@@ -10,26 +10,26 @@ import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 
-@Entity
+@Entity(name = "Library")
 data class Library(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long = 0L,
     @Column
     val name: String,
     @ManyToMany(fetch = LAZY)
     @JoinTable(
-        name = "library_clients",
+        name = "Library_Clients",
         joinColumns = [JoinColumn(name = "library_id")],
         inverseJoinColumns = [JoinColumn(name = "client_id")]
     )
-    val clients: Set<Client>,
+    val clients: Set<Client> = setOf(),
     @ManyToMany(fetch = LAZY)
     @JoinTable(
-        name = "library_comics",
+        name = "Library_Comics",
         joinColumns = [JoinColumn(name = "library_id")],
         inverseJoinColumns = [JoinColumn(name = "comic_id")]
     )
-    val comics: Set<Comic>
+    val comics: Set<Comic> = setOf()
 
 )

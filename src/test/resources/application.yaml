@@ -1,0 +1,13 @@
+spring:
+  test:
+    database:
+      replace: none
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: afergon
+    url: jdbc:postgresql://localhost:5432/comic_libraries_test
+    username: afergon
+
+  liquibase:
+    change-log: classpath:database/liquibase-changelog.xml

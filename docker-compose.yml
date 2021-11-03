@@ -1,0 +1,13 @@
+version: '3'
+services:
+  database:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    env_file:
+      - docker/database/database.env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+      - ./docker/database/init-scripts:/docker-entrypoint-initdb.d
+volumes:
+  database-data:

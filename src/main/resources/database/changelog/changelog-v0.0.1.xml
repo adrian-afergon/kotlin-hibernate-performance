@@ -1,0 +1,111 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-database" author="afergon">
+        <createTable tableName="client">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="comic">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="library">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="library_comics">
+            <column name="library_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comic_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stock" defaultValue="0" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="library_clients">
+            <column name="library_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="library_id"
+                                 baseTableName="library_clients"
+                                 constraintName="fk_library_clients_library_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="library"/>
+
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="library_clients"
+                                 constraintName="fk_library_clients_client_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="client"/>
+
+        <addForeignKeyConstraint baseColumnNames="library_id"
+                                 baseTableName="library_comics"
+                                 constraintName="fk_library_comics_library_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="library"/>
+
+        <addForeignKeyConstraint baseColumnNames="comic_id"
+                                 baseTableName="library_comics"
+                                 constraintName="fk_library_clients_comics_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="comic"/>
+
+    </changeSet>
+
+</databaseChangeLog>

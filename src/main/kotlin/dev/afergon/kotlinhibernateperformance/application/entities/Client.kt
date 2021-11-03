@@ -19,11 +19,11 @@ data class Client(
     val name: String,
     @Column
     val email: String,
-    @ManyToMany(fetch = LAZY)
-    @JoinTable(
-        name = "client_comics",
-        joinColumns = [JoinColumn(name = "client_id")],
-        inverseJoinColumns = [JoinColumn(name = "comic_id")]
-    )
-    val comics: MutableList<Comic> = mutableListOf(),
+//    @ManyToMany(fetch = LAZY)
+//    @JoinTable(
+//        name = "Client_Comics",
+//        joinColumns = [JoinColumn(name = "client_id")],
+//        inverseJoinColumns = [JoinColumn(name = "comic_id")]
+//    )
+//    val comics: MutableList<Comic> = mutableListOf(),
 )
